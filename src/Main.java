@@ -21,12 +21,5 @@ public class Main {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-//        try {
-//            info.getHttp(latitude,longitude,limit);
-//        } catch (IOException | InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-
     }
 }

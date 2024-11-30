@@ -41,7 +41,7 @@ public class Api {
                 if (i == 0) {
                     firstDate = forecastObject.get("date").getAsString();
                 }
-                if (i == size -1) {
+                if (i == size - 1) {
                     lastDate = forecastObject.get("date").getAsString();
                 }
 
@@ -49,31 +49,17 @@ public class Api {
                         .getAsJsonObject("day")
                         .get("temp_avg")
                         .getAsDouble();
+
                 summaryTemp += dayTemperature;
+
+                System.out.printf("On %s temperature will be %d degree.\n", forecastObject.get("date").getAsString(), (int) dayTemperature);
             }
 
             double averageTemperature = summaryTemp / size;
 
-            System.out.println("Average temperature from " + firstDate + " to " + lastDate + " = " + averageTemperature + " celsius");
+            System.out.printf("Average temperature from %s to %s = %3.2f%n degree", firstDate, lastDate, averageTemperature);
         } else {
-            System.out.println("Forecasts array not found in JSON response.");
+            System.out.println("You need to request at least 1 day.");
         }
     }
-
-    public void getHttp(Double latitude, Double longitude, int limit) throws IOException, InterruptedException {
-        String URL = String.format("https://api.weather.yandex.ru/v2/forecast?lat=%s&lon=%s&limit=%s", latitude, longitude, limit);
-
-        HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(URL))
-                .header(HEADER_KEY_NAME, ACCESS_KEY)
-                .header("Content-Type", "application/json")
-                .GET()
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
-    }
-
-    }
+}
